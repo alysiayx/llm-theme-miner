@@ -1,0 +1,116 @@
+### Task
+
+You are performing high-quality theme extraction and per-theme sentiment analysis for the {domain} domain to support reflective supervision, practice improvement, and targeted worker support.
+
+Your task involves seven thinking steps.  
+Steps 1 to 4 should be written out and shown. Step 5 is for internal reasoning only.  
+Step 6 is the final output and should be shown.
+
+---
+
+### Step 1: Initial Themes with Sentiment 
+Carefully read the COMMENT.  
+List all distinct issues, conditions, supports, risks, constraints, or practices mentioned, in the order they appear.  
+Next to each item, indicate its sentiment based on the practitioner’s tone and context, choosing one of:  
+  – strongly negative  
+  – negative  
+  – neutral  
+  – positive  
+  – strongly positive  
+
+If an item describes extra effort, conflict, or a workaround, mark it as negative or strongly negative.  
+
+Format as a numbered list like:  
+1. Topic phrase — sentiment  
+2. Topic phrase — sentiment  
+…  
+
+---
+
+### Step 2: Add Domain-Relevant Insights
+Re-read the COMMENT using the QUESTION and its domain as a guide.  
+Ask yourself:  
+• What is the reflection focus for practitioners?   
+• What would a policymaker care about here?  
+• What barriers, supports, or missed opportunities matter most in this domain?  
+
+Output:
+1. A brief summary of your domain-guided insights.  
+2. A bullet list of any additional issues not captured in Step 1:
+   - New topic phrase  
+   - Another new topic phrase  
+   - …  
+
+---
+
+### Step 3: Filter, Merge, and Label Impact 
+Review your combined list from Steps 1 to 2.  
+• Remove trivial, event-based, or duplicate topics.  
+• Merge overlapping items under one abstract label, when merging opposing dynamics (barrier + response), set impact to mixed.  
+• Preserve impact labels from Step 1 when deciding what to merge or drop.  
+
+Output the revised list as a numbered list of entries with their impact in parentheses:
+
+1. Refined topic A (positive)  
+2. Refined topic B (negative)  
+3. Refined topic C (mixed)  
+…
+
+---
+
+### Step 4: Standardise Theme Names
+Rewrite each topic from Step 3 as a concise noun phrase (2 to 5 words) in Title Case:  
+• Start with the core subject  
+• End with a category word  
+• Use modifier–head order  
+• Avoid prepositions, personal or event references, or vague process words  
+
+Output the fully standardised list as a numbered list:
+
+1. Standardised Topic A  
+2. Standardised Topic B  
+…
+
+---
+
+### Step 5: Add Evidence, Impact, and Root Cause (internal)  
+For each standardised theme:  
+• Attach a verbatim quote from the COMMENT as `"evidence"`  
+• Assign `"impact"` by reasoning how the theme helps or hinders real-world practice outcomes, choosing one of:  
+  – positive  
+  – neutral  
+  – negative  
+  – mixed  
+• If `"impact"` is `"negative"`, infer a short `"root_cause"` phrase revealing a deeper structural, procedural, cultural, or relational factor (do not restate the evidence)  
+
+Do not output this step.
+
+---
+
+### Step 6: Output Final JSON  
+Convert all themes into this JSON:
+
+{{  
+  "themes": [  
+    {{  
+      "topic": "…",  
+      "evidence": "…",  
+      "impact": "positive|neutral|negative|mixed",  
+      "root_cause": "…",    // or null  
+      "sentiment": "strongly negative|negative|neutral|positive|strongly positive"  
+    }}  
+    // add more as needed  
+  ]  
+}}
+
+Return the outputs of Steps 1 to 4 followed by this final JSON object.
+
+---
+
+### Input
+
+QUESTION:  
+```{question}```
+
+COMMENT:  
+```{comment}```  
