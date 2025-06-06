@@ -1,10 +1,23 @@
 # themex
 
+[![PyPI version](https://img.shields.io/pypi/v/themex.svg)](https://pypi.org/project/themex/)
+[![Python](https://img.shields.io/pypi/pyversions/themex.svg)](https://pypi.org/project/themex/)
+[![License](https://img.shields.io/github/license/alysiayx/llm-theme-miner.svg?cacheSeconds=60)](https://github.com/alysiayx/llm-theme-miner/blob/main/LICENSE)
+
 > ⚠️ **Caution**: This package is under active development and is currently **not stable**. Interfaces, file structure, and behaviour may change without notice.
 
 **themex** is a flexible, modular framework designed to support large language model (LLM) tasks across social care, health, and research contexts — including **thematic extraction**, **sentiment analysis**, and more.
 
 It supports both **local HuggingFace models** and **remote APIs** (such as Azure OpenAI), with configurable prompts, structured outputs, and logging.
+
+
+---
+
+## 📦 Installation
+
+```bash
+pip install themex
+```
 
 ---
 
@@ -153,21 +166,6 @@ If `csv_logger_filepath` is specified, the framework will save an additional **p
 
 ---
 
-## 📦 Installation
-
-Install with [Poetry](https://python-poetry.org/):
-
-```bash
-poetry install
-```
-
-Or in editable mode:
-
-```bash
-pip install -e .
-```
-
----
 
 <!-- ## 🧩 Prompt Templates
 
