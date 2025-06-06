@@ -1,0 +1,13 @@
+# System files
+.DS_Store
+.env
+.vscode/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Packaging
+dist/
+build/
+*.egg-info/
