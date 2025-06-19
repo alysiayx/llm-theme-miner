@@ -29,38 +29,64 @@ llm-theme-miner/
 ├── pyproject.toml
 ├── README.md
 └── themex/
-    ├── __init__.py
-    ├── llm_runner/          # Core logic for calling LLMs
-    ├── logger.py            # Logging utilities
-    ├── paths.py             # Default paths and file naming logic
-    ├── prompts/             # Prompt template files
-    └── utils.py             # General utility functions
+    ├── llm_runner                    # Core logic for calling LLMs
+    │   ├── direct_runner.py
+    │   ├── hf_runner.py
+    │   ├── langchain_runner.py
+    │   ├── schema.py
+    │   └── utils.py
+    ├── logger.py                     # Logging utilities
+    ├── paths.py                      # Default paths and file naming logic
+    ├── prompts/                      # Prompt template files
+    └── utils.py                      # General utility functions
+
+
 ```
 
 ---
 
 ## 🚀 Quick Start
 
-This framework is designed for flexible and extensible usage. Below are two minimal working examples.
+This framework supports flexible execution of large language models (LLMs) via local or remote backends. You can choose to run models on your own machine (```"execution_mode": "local"```) or through hosted APIs like Azure OpenAI and OpenRouter (```"execution_mode": "remote"```).
+
+### 🔐 API Key Configuration
+
+By default, API keys are loaded from a `.env` file:
+
+```env
+# For Azure OpenAI
+AZURE_API_KEY=your_azure_key
+AZURE_ENDPOINT=https://your-resource-name.openai.azure.com/
+AZURE_DEPLOYMENT_NAME=your_deployment_name
+
+# For OpenRouter
+OPENROUTER_API_KEY=your_openrouter_key
+```
+
+If not found, you can pass them as parameters:
+
+```python
+# For Azure
+api_key="your_azure_key", azure_endpoint="https://...", deployment_name="your_deployment_name",
+
+# For OpenRouter
+api_key="your_openrouter_key"
+```
 
 ### Example 1 - Using a local HuggingFace model
 
 ```python
-from themex.llm_runner import run_llm
+from themex.llm_runner.direct_runner import run_llm
 from pathlib import Path
 from multiprocessing import Process
-
-model_id = "meta-llama/Meta-Llama-3-8B-Instruct"
-sys_tmpl = Path("./prompts/system_prompt.txt")
-user_tmpl = Path("./prompts/theming_sentiment.txt")
 
 p = Process(target=run_llm, kwargs={
     "execution_mode": "local",
     "provider": "huggingface",
-    "model_id": model_id,
+    "model_id": "meta-llama/Meta-Llama-3-8B-Instruct",
     "inputs": ["This is an example comment."],
-    "sys_tmpl": sys_tmpl,
-    "user_tmpl": user_tmpl,
+    "sys_tmpl": Path("./prompts/system_prompt.txt"),
+    "user_tmpl": Path("./prompts/theming_sentiment.txt"),
     "gen_args": {
         "temperature": 0.7,
         "max_new_tokens": 300
@@ -81,12 +107,16 @@ p.join()
 ### Example 2 - Using Azure OpenAI remotely
 
 ```python
+from themex.llm_runner.direct_runner import run_llm
+from pathlib import Path
+from multiprocessing import Process
+
 p = Process(target=run_llm, kwargs={
     "execution_mode": "remote",
     "provider": "azure",
     "model_id": "gpt-4.1",
     "api_version": "2025-01-01-preview",
-    "inputs": ["Another example comment."],
+    "inputs": ["This is an example comment."],
     "sys_tmpl": Path("./prompts/system_prompt.txt"),
     "user_tmpl": Path("./prompts/theming_sentiment.txt"),
     "gen_args": {
@@ -103,7 +133,7 @@ p.start()
 p.join()
 ```
 
-### 💡 Note on Multi-Process Execution
+#### 💡 Note on Multi-Process Execution
 
 The examples use Python's `multiprocessing.Process` to run each task in a separate subprocess.
 
@@ -113,9 +143,29 @@ Running in a subprocess ensures that memory (especially GPU memory) is fully rel
 
 Feel free to adapt the structure for your own scheduling or orchestration needs.
 
+
+### Example 3 - Using LangChain with OpenRouter as LLM Backend
+
+```python
+from themex.llm_runner.langchain_runner import run_chain_openrouter_async 
+
+results, failed = await run_chain_openrouter_async(
+    model_name="meta-llama/llama-3.3-70b-instruct:free",
+    "inputs": ["This is an example comment."],
+    sys_tmpl=Path("./prompts/system_prompt.txt"),
+    user_tmpl=Path("./prompts/theming_sentiment.txt"),
+    output_filename="output.csv",
+    csv_logger_filepath="log.csv",
+    gen_args={"temperature": 0.0}
+)
+```
+
 ---
 
 ## 📄 Output Format (Example)
+
+The output assumes you are using the prompts included in this repository.  
+👉 [View prompt template on GitHub](https://github.com/alysiayx/llm-theme-miner/tree/main/themex/prompts)
 
 ### 🧠 Field Definitions
 
