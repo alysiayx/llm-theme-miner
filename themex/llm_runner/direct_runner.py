@@ -32,6 +32,7 @@ load_dotenv()
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 AZURE_API_KEY = os.getenv("AZURE_API_KEY")
 AZURE_ENDPOINT = os.getenv("AZURE_ENDPOINT")
+AZURE_DEPLOYMENT_NAME = os.getenv("AZURE_DEPLOYMENT_NAME")
 
 # Not yet implemented
 def _build_quant_config(load_in_4bit: bool):
@@ -221,6 +222,7 @@ def run_llm(
         OPENROUTER_API_KEY if provider == "openrouter" else
         AZURE_API_KEY if provider == "azure" else None
     )
+    deployment_name = deployment_name or AZURE_DEPLOYMENT_NAME
 
     generate_fn, torch_dtype, context_len = _setup_generator(
         execution_mode, provider, model_id,
