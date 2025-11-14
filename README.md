@@ -168,7 +168,9 @@ The example output assumes that you are using the prompts included in this repos
 
 👉 [View prompt template on GitHub](https://github.com/alysiayx/llm-theme-miner/tree/main/themex/prompts)
 
-In this setup, the prompt is written in a step-by-step manner and bundles multiple sub-tasks into a single instruction block. However, instead of executing everything sequentially, you can distribute these sub-tasks by launching them as separate `multiprocessing.Process` workers. Each worker handles one step of the prompt, and you can then aggregate their outputs at the end to form the final result.
+In this setup, the prompt is written in a step-by-step manner and bundles multiple sub-tasks into a single instruction block. However, instead of executing everything sequentially, you can distribute these sub-tasks by launching them as separate `multiprocessing.Process` workers. Each worker handles one step of the prompt, and you can then aggregate their outputs at the end to form the final result. **What we found is the longer the prompt, the worse the performance.**
+
+
 
 ### 🧠 Field Definitions
 
