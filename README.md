@@ -19,6 +19,8 @@ It supports both **local HuggingFace models** and **remote APIs** (such as Azure
 pip install themex
 ```
 
+Dependencies are installed automatically.
+
 ---
 
 ## 📁 Project Structure
