@@ -3,6 +3,7 @@
 [![PyPI version](https://img.shields.io/pypi/v/themex.svg)](https://pypi.org/project/themex/)
 [![Python](https://img.shields.io/pypi/pyversions/themex.svg)](https://pypi.org/project/themex/)
 [![License](https://img.shields.io/github/license/alysiayx/llm-theme-miner.svg?cacheSeconds=60)](https://github.com/alysiayx/llm-theme-miner/blob/main/LICENSE)
+![Release status: pre-release](https://img.shields.io/badge/status-pre--release-orange)
 
 > ⚠️ **Caution**: This package is under active development and is currently **not stable**. Interfaces, file structure, and behaviour may change without notice.
 
