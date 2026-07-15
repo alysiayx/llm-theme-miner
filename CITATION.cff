@@ -1,0 +1,17 @@
+cff-version: 0.1.0a1.post3
+title: themex
+message: >
+  If you use themex in your research, please cite it using the metadata below.
+type: software
+
+authors:
+  - family-names: Xu
+    given-names: Yanhua
+
+repository-code: "https://github.com/alysiayx/llm-theme-miner"
+url: "https://github.com/alysiayx/llm-theme-miner"
+
+license: MIT
+
+version: "0.1.0a1.post3"
+date-released: "2025-11-14"

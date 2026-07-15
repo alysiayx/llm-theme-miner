@@ -250,3 +250,7 @@ This project is still in development. Breaking changes are likely.
 To report bugs, request features, or contribute ideas, please open an issue on GitHub or contact the maintainer.
 
 ---
+
+## Citation
+
+If you use **themex** in your research, please cite this repository using the GitHub citation information or the BibTeX entry available under **"Cite this repository"**.
